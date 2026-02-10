@@ -591,6 +591,147 @@ Find highest score, calculate class average
 
 ---
 
+## 📝 Experiment 11: Check Whether a String is Palindrome or Not
+
+**Objective:** Determine if a string reads the same forwards and backwards  
+**Mandatory Practical Requirement:** Official Experiment #11 (Unit 3)  
+**Learning:** String manipulation and character comparison logic
+
+A **palindrome** is a word, number, or phrase that reads the same forwards and backwards (ignoring spaces, punctuation, and case).
+
+**Examples:**
+- "racecar" → palindrome
+- "madam" → palindrome
+- "hello" → not a palindrome
+- "A man a plan a canal Panama" → palindrome (if we ignore spaces)
+
+<details>
+  <summary><strong>Click to reveal solutions</strong></summary>
+
+### Method 1: Manual Character Comparison (Without Built-ins)
+
+```javascript
+// Experiment 11: Check if string is palindrome
+// Method 1: Manual loop comparing characters from start and end
+
+function isPalindrome(str) {
+    // Convert to lowercase and remove spaces
+    const cleaned = str.toLowerCase();
+    let start = 0;
+    let end = cleaned.length - 1;
+    
+    // Compare characters from both ends moving towards center
+    while (start < end) {
+        if (cleaned[start] !== cleaned[end]) {
+            return false;  // Not a palindrome
+        }
+        start++;
+        end--;
+    }
+    
+    return true;  // Is a palindrome
+}
+
+console.log(isPalindrome("racecar"));  // true
+console.log(isPalindrome("madam"));    // true
+console.log(isPalindrome("hello"));    // false
+console.log(isPalindrome("A"));        // true (single character)
+console.log(isPalindrome("ab"));       // false
+```
+
+**How It Works:**
+```javascript
+// "racecar"
+// Compare: r ↔ r (match)
+// Compare: a ↔ a (match)
+// Compare: c ↔ c (match)
+// Result: palindrome = true
+```
+
+### Method 2: Using Built-in Array Methods (Smart Way)
+
+```javascript
+// Experiment 11: Check palindrome using modern built-ins
+// Method 2: Split, reverse, join, and compare
+
+function isPalindrome(str) {
+    // Convert to lowercase, remove spaces/punctuation
+    const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+    
+    // Reverse by splitting into array, reversing, joining back
+    const reversed = cleaned.split("").reverse().join("");
+    
+    // Compare original with reversed
+    return cleaned === reversed;
+}
+
+// Or even more concise:
+const isPalindromeArrow = (str) => {
+    const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return cleaned === cleaned.split("").reverse().join("");
+};
+
+console.log(isPalindrome("racecar"));  // true
+console.log(isPalindrome("madam"));    // true
+console.log(isPalindrome("Madam"));    // true (handles case)
+console.log(isPalindrome("A man a plan a canal Panama"));  // true
+console.log(isPalindrome("hello"));    // false
+```
+
+### Test Cases
+
+```javascript
+// Comprehensive palindrome tests
+const testCases = [
+    { str: "racecar", expected: true },
+    { str: "madam", expected: true },
+    { str: "hello", expected: false },
+    { str: "a", expected: true },
+    { str: "ab", expected: false },
+    { str: "aba", expected: true },
+    { str: "Madam", expected: true },  // Case-insensitive
+    { str: "12321", expected: true },
+    { str: "", expected: true },  // Empty string
+];
+
+console.log("Palindrome Check Results:");
+console.log("String | Expected | Got | Match");
+console.log("--------|----------|-----|------");
+
+testCases.forEach(test => {
+    const cleaned = test.str.toLowerCase();
+    const result = cleaned === cleaned.split("").reverse().join("");
+    const match = result === test.expected ? "✓" : "✗";
+    console.log(test.str + " | " + test.expected + " | " + result + " | " + match);
+});
+```
+
+</details>
+
+---
+
+## 📚 Summary
+
+| Method | Purpose | Example |
+|--------|---------|---------|
+| push() | Add to end | `arr.push(5)` |
+| pop() | Remove end | `arr.pop()` |
+| shift() | Remove start | `arr.shift()` |
+| unshift() | Add start | `arr.unshift(0)` |
+| length | Array size | `arr.length` |
+| indexOf() | Find position | `arr.indexOf(5)` |
+| includes() | Check exists | `arr.includes(5)` |
+| join() | Convert to string | `arr.join(", ")` |
+| slice() | Extract portion (new array) | `arr.slice(1, 3)` |
+| concat() | Merge arrays (new array) | `arr1.concat(arr2)` |
+| find() | First matching element | `arr.find(x => x > 5)` |
+| findIndex() | Index of first match | `arr.findIndex(x => x > 5)` |
+| some() | Any element passes test? | `arr.some(x => x > 5)` |
+| every() | All elements pass test? | `arr.every(x => x > 5)` |
+| flat() | Flatten nested arrays | `nested.flat()` |
+
+---
+
 ## 📖 Today's Learning Path
 
 **09:00-09:30 (30 min):** Theory - Array Basics  
